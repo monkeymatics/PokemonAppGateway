@@ -1,0 +1,62 @@
+swagger: "2.0"
+
+info:
+  version: "v1"
+  title: "Pokemon APIs"
+
+schemes:
+  - "https"
+
+consumes:
+  - "application/json"
+
+produces:
+  - "application/json"
+
+paths:
+  # Pokemon Endpoints
+  #----------------------------------------
+  /pokemon/{type}:
+    $ref: ./pokemon/endpoint.yaml
+  /pokemon/translated/{type}:
+    $ref: ./pokemon/endpoint.yaml
+
+definitions:
+  GenericErrorResponse:
+    type: "object"
+    title: "Generic Error Response"
+    properties:
+      culture:
+        type: "string"
+      errors:
+        type: "array"
+        items:
+          type: "object"
+          properties:
+            message:
+              type: "string"
+            responseCodeToken:
+              type: "string"
+              description: |
+                A code that indicates details of the specific error that occurred. For details of the possible values,
+                see the documentation for the specific request.
+      message:
+        type: "object"
+        properties:
+          message:
+            type: "string"
+          responseCodeToken:
+            type: "string"
+            description: |
+              A code that indicates generic details of the error that occurred. The following values are possible. For
+              details of the possible values in the context of a specific request, see the documentation for that
+              request.
+                | Value | Description |
+                | --- | --- |
+                | RequestInvalid | A validation error on the request. |
+                | GeneralError | An unexpected error occurred, and no further information is available to the client. |
+
+  # Authentication Request/Response Models
+  #----------------------------------------
+  PokemonResponse:
+    $ref: ./pokemon/response.yaml

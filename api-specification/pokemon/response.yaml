@@ -1,0 +1,14 @@
+type: "object"
+properties:
+  name:
+    type: string
+    description: The name of the Pokemon
+  description:
+    type: string
+    description: The Pokemon description
+  habitat:
+    type: string
+    description: The habitat of the Pokemon
+  isLegendary:
+    type: boolean
+    description: Whether the Pokemon is legendary

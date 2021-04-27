@@ -1,0 +1,52 @@
+get:
+      description: "Gets details of the specified pokemon"
+      tags:
+      - "Pokemon"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "type"
+        in: "path"
+        required: true
+        type: "string"
+        description: |
+          The name of the pokemon to search for
+      responses:
+        200:
+          description: "200 response"
+          schema:
+            $ref: "#/definitions/PokemonResponse"
+        400:
+          description: |
+              Invalid Data. One or more of the input fields are missing, invalid or outside the permitted range.
+              The "message.responseCodeToken" field may take one of the following values:
+                | Value | Description |
+                | --- | --- |
+                | RequestInvalid | A validation error on the request. |
+          schema:
+            $ref: "#/definitions/GenericErrorResponse"
+        500:
+          description: |
+            Internal Server Error. An unspecified server error has occurred.
+            The "message.responseCodeToken" field may take one of the following values:
+              | Value | Description |
+              | --- | --- |
+              | GeneralError | An unexpected error occurred, and no further information is available to the client. |
+          schema:
+            $ref: "#/definitions/GenericErrorResponse"
+      x-amazon-apigateway-integration:
+        responses:
+          default:
+            statusCode: "200"
+        uri: 
+          Fn::Sub:
+            - arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/arn:aws:lambda:${AWS::Region}:${AWS::AccountId}:function:${FunctionName}/invocations
+            - FunctionName:
+                Fn::ImportValue:
+                  Fn::Sub: "${PokemonStackName}-ApiFunction"
+        passthroughBehavior: "when_no_match"
+        httpMethod: "POST"
+        contentHandling: "CONVERT_TO_TEXT"
+        type: "aws_proxy"

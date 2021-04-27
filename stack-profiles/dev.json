@@ -1,0 +1,9 @@
+{
+  "StackNamePrefix": "Dev-",
+  "StackName": "PokemonAppGateway",
+  "ArtifactsS3Bucket": "artifacts-pokemon",
+  "ArtifactsS3Prefix": "dev/pokemonappgateway",
+  "StageName": "dev",
+  "ProfileName": "default",
+  "PokemonStackName": "Dev-PokemonService"
+}
